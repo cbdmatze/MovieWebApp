@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MovieWeb</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-indigo-600 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold">MovieWeb</h1>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><a href="#" class="hover:text-indigo-200">Home</a></li>
+          <li><a href="#" class="hover:text-indigo-200">Movies</a></li>
+          <li><a href="#" class="hover:text-indigo-200">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-cover bg-center h-80 relative" style="background-image: url('your-movie-poster.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 text-white text-center flex justify-center items-center h-full">
+      <div>
+        <h2 class="text-4xl font-bold">Welcome to MovieWeb</h2>
+        <p class="mt-2 text-xl">Your favorite movie database</p>
+        <a href="#" class="mt-4 inline-block bg-indigo-700 py-2 px-4 rounded-lg text-lg">Explore Movies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Movies Section -->
+  <section class="container mx-auto p-6">
+    <h2 class="text-3xl font-semibold text-center mb-6">Featured Movies</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Movie Card 1 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="movie-poster-1.jpg" alt="Movie Title" class="w-full h-60 object-cover">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">Movie Title</h3>
+          <p class="text-gray-600">Director: John Doe</p>
+          <p class="text-gray-600">Year: 2025</p>
+          <p class="text-indigo-600">Rating: 8.5/10</p>
+          <button class="mt-2 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">View Details</button>
+        </div>
+      </div>
+
+      <!-- Movie Card 2 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="movie-poster-2.jpg" alt="Movie Title" class="w-full h-60 object-cover">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">Another Movie</h3>
+          <p class="text-gray-600">Director: Jane Doe</p>
+          <p class="text-gray-600">Year: 2023</p>
+          <p class="text-indigo-600">Rating: 7.2/10</p>
+          <button class="mt-2 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">View Details</button>
+        </div>
+      </div>
+
+      <!-- Movie Card 3 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="movie-poster-3.jpg" alt="Movie Title" class="w-full h-60 object-cover">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">Third Movie</h3>
+          <p class="text-gray-600">Director: Someone</p>
+          <p class="text-gray-600">Year: 2022</p>
+          <p class="text-indigo-600">Rating: 9.0/10</p>
+          <button class="mt-2 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">View Details</button>
+        </div>
+      </div>
+
+      <!-- Movie Card 4 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="movie-poster-4.jpg" alt="Movie Title" class="w-full h-60 object-cover">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">Movie Four</h3>
+          <p class="text-gray-600">Director: Unknown</p>
+          <p class="text-gray-600">Year: 2024</p>
+          <p class="text-indigo-600">Rating: 6.7/10</p>
+          <button class="mt-2 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">View Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-4">
+    <p>&copy; 2025 MovieWeb. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
