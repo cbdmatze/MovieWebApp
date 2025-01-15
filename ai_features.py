@@ -1,5 +1,6 @@
 import openai
 import os
+import requests
 
 class AIFeatures:
     def __init__(self):
@@ -69,3 +70,25 @@ class AIFeatures:
             ]
         )
         return response['choices'][0]['message']['content']
+
+    def get_movie_trailer(self, movie_name):
+        """
+        Fetches a YouTube link to the trailer of a specific movie using the YouTube Data API.
+
+        Parameters:
+            movie_name (str): The name of the movie to fetch the trailer for.
+
+        Returns:
+            str: A URL of the movie's trailer on YouTube.
+        """
+        youtube_api_key = os.getenv('YOUTUBE_API_KEY')
+        search_url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={movie_name} trailer&type=video&key={youtube_api_key}"
+        response = requests.get(search_url)
+        data = response.json()
+
+        if 'items' in data and len(data['items']) > 0:
+            video_id = data['items'][0]['id']['videoId']
+            trailer_url = f"https://www.youtube.com/watch?v={video_id}"
+            return trailer_url
+        else:
+            return "Trailer not found."

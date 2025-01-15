@@ -1,13 +1,48 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ user.name }}'s Movies</h1>
+    <a href="{{ url_for('index') }}">Back to Users List</a>
 
-{% block title %}Movie Details{% endblock %}
+    <h2>Movies List</h2>
+    {% if movies %}
+        <ul>
+        {% for movie in movies %}
+            <li>
+                <strong>{{ movie.name }}</strong> ({{ movie.year }})<br>
+                Directed by: {{ movie.director }}<br>
+                Rating: {{ movie.rating }}/10<br>
+                <a href="{{ url_for('movie_trailer', user_id=user.id, movie_name=movie.name) }}">Watch Trailer</a>
+            </li>
+        {% else %}
+            <p>No movies added yet.</p>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>This user has not added any movies yet.</p>
+    {% endif %}
 
-{% block content %}
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ user.name }}'s Movie: {{ movie.name }}</h2>
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-        <p><strong>Director:</strong> {{ movie.director }}</p>
-        <p><strong>Year:</strong> {{ movie.year }}</p>
-        <p><strong>Rating:</strong> {{ movie.rating }}/10</p>
-    </div>
-    <a href="{{ url_for('user_movies', user_id=user.id) }}" class="text-blue-500 hover:text-blue-700 mt-4 inline-block">Back to Movies List</a>
-{% endblock %}
+    <h3>Add a New Movie</h3>
+    <form action="{{ url_for('add_movie', user_id=user.id) }}" method="POST">
+        <label for="name">Movie Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="director">Director:</label><br>
+        <input type="text" id="director" name="director" required><br><br>
+
+        <label for="year">Year:</label><br>
+        <input type="number" id="year" name="year" min="1800" max="{{ current_year }}" required><br><br>
+
+        <label for="rating">Rating (0-10):</label><br>
+        <input type="number" id="rating" name="rating" step="0.1" min="0" max="10" required><br><br>
+
+        <input type="submit" value="Add Movie">
+    </form>
+</body>
+</html>

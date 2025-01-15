@@ -135,32 +135,52 @@ def recommendations(user_id):
     """
     Generates and displays movie recommendations for a specific user based on their favorite movies.
 
-    This function fetches all movies for the user and sends the list of movie names to the OpenAI model for recommendations.
-    The recommendations are then rendered on the 'recommendations.html' template.
+    This function fetches all movies for the user and sends the list of movie names to the AI-powered recommendation
+    system, which returns movie suggestions.
 
     Parameters:
-        user_id (int): The ID of the user for whom recommendations should be generated.
+        user_id (int): The ID of the user for whom movie recommendations are generated.
 
     Returns:
-        A rendered HTML page displaying movie recommendations based on the user's favorite movies.
+        A rendered HTML page with the recommended movies based on the user's favorites.
     """
     user = next((u for u in data_manager.get_all_users() if u.id == user_id), None)
     if user is None:
         logger.warning(f"User with ID {user_id} not found.")
-        return jsonify({'error': 'User not found', 'message': f'User with ID {user_id} not found.'}), 404
+        flash(f"User with ID {user_id} not found.", 'error')
+        return redirect(url_for('index'))
 
     try:
-        favorite_movies = [movie.name for movie in data_manager.get_movies_by_user(user_id)]
-        recommendations = ai_features.get_movie_recommendations(favorite_movies)
+        movies = data_manager.get_movies_by_user(user_id)
+        movie_names = [movie.name for movie in movies]
+        recommendations = ai_features.get_movie_recommendations(movie_names)
         return render_template('recommendations.html', user=user, recommendations=recommendations)
     except Exception as e:
         logger.error(f"Error generating recommendations for user {user_id}: {e}")
-        return jsonify({'error': 'An error occurred while generating recommendations.'}), 500
+        flash('An error occurred while generating recommendations.', 'error')
+        return redirect(url_for('user_movies', user_id=user_id))
+
+@app.route('/movie_trailer/<int:user_id>/<string:movie_name>')
+def movie_trailer(user_id, movie_name):
+    """
+    Fetches and displays a trailer for a specific movie using the YouTube Data API.
+
+    This function sends the movie name to the AI-powered YouTube API handler to retrieve a trailer link.
+
+    Parameters:
+        user_id (int): The ID of the user.
+        movie_name (str): The name of the movie for which the trailer is to be fetched.
+
+    Returns:
+        A rendered HTML page with the movie trailer.
+    """
+    try:
+        trailer_url = ai_features.get_movie_trailer(movie_name)
+        return render_template('movie_trailer.html', trailer_url=trailer_url, movie_name=movie_name)
+    except Exception as e:
+        logger.error(f"Error fetching trailer for {movie_name}: {e}")
+        flash('An error occurred while fetching the movie trailer.', 'error')
+        return redirect(url_for('user_movies', user_id=user_id))
 
 if __name__ == '__main__':
-    """
-    Runs the Flask application in debug mode.
-
-    This is the entry point of the application, and it starts the Flask web server when the script is run directly.
-    """
     app.run(host='0.0.0.0', port=5000, debug=True)
