@@ -1,16 +1,24 @@
-{% extends "base.html" %}
-
-{% block title %}User's Movies{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ user.name }}'s Movies</h2>
-    <ul class="bg-white rounded-lg shadow-lg p-4">
+<div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-4">Movies List</h1>
+    
+    <!-- Search Bar -->
+    <form method="GET" action="/search" class="mb-4">
+        <input type="text" name="query" placeholder="Search movies or users..." class="border rounded px-2 py-1 w-1/2">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded">Search</button>
+    </form>
+    
+    <!-- Movies List -->
+    <ul>
         {% for movie in movies %}
-            <li class="p-2 border-b border-gray-200">
-                <strong>{{ movie.name }}</strong> ({{ movie.year }}) - Rating: {{ movie.rating }}/10
-                <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
-                <a href="{{ url_for('delete_movie', movie_id=movie.id) }}" class="text-red-500 hover:text-red-700">Delete</a>
-            </li>
+        <li class="mb-2">
+            <a href="{{ url_for('movie_details', movie_id=movie['id']) }}" class="text-blue-500">
+                {{ movie.name }} ({{ movie.year }})
+            </a>
+        </li>
         {% endfor %}
     </ul>
+</div>
 {% endblock %}
