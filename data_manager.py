@@ -6,7 +6,7 @@ class DataManager:
         Initializes the DataManager class and sets the database file location.
         Automatically calls the create_tables method to ensure tables exist.
         """
-        self.db_file = 'data/moviweb.db'
+        self.db_file = 'data/moviewebapp.db'
         self.create_tables()
 
     def create_tables(self):

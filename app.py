@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from data_manager import DataManager
 from ai_features import AIFeatures
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from the .env file
+load_dotenv()
 
 app = Flask(__name__)
 data_manager = DataManager()
@@ -87,4 +92,4 @@ if __name__ == '__main__':
 
     This is the entry point of the application, and it starts the Flask web server when the script is run directly.
     """
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
